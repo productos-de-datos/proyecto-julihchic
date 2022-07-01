@@ -1,4 +1,3 @@
-
 def load_data():
 
     import pandas as pd
@@ -39,13 +38,13 @@ def trein_model(x_train, x_test):
     from sklearn.preprocessing import StandardScaler
     from sklearn.ensemble import RandomForestRegressor
 
-   
+    # Se Define el algoritmo a utilizar
     scaler = StandardScaler()
     scaler.fit(x_train)
     x_train = scaler.transform(x_train)
     x_test = scaler.transform(x_test)
 
-    
+    # Se establece el Modelo
     model_RF = RandomForestRegressor(n_jobs=-1)
 
     return model_RF
@@ -77,5 +76,4 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    
     train_daily_model()
