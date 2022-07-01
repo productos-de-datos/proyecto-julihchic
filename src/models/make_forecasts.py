@@ -99,6 +99,7 @@ def make_forecasts():
 
 
     #raise NotImplementedError("Implementar esta función")
+    
 if __name__ == "__main__":
     import doctest
 
