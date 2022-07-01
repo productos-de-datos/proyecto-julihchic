@@ -34,9 +34,7 @@ def clean_data():
     df.to_csv("data_lake/cleansed/precios-horarios.csv",
               index=None, header=True)
     #raise NotImplementedError("Implementar esta función")
-    # return
 
-# clean_data()
 
 
 if __name__ == "__main__":
