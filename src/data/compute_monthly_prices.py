@@ -39,7 +39,6 @@ def compute_monthly_prices():
         "data_lake/business/precios-mensuales.csv", index=None, header=True)
 
     #raise NotImplementedError("Implementar esta función")
-    # return
 
 
 if __name__ == "__main__":
