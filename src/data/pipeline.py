@@ -1,24 +1,20 @@
 """
 Construya un pipeline de Luigi que:
-
 * Importe los datos xls
 * Transforme los datos xls a csv
 * Cree la tabla unica de precios horarios.
 * Calcule los precios promedios diarios
 * Calcule los precios promedios mensuales
-
 En luigi llame las funciones que ya creo.
-
-
 """
 
 import luigi
 from luigi import Task, LocalTarget
 
 
-class ingestar_datos(Task):
+class ingestar_data(Task):
     def output(self):
-        return LocalTarget('data_lake/landing/ingestar_datos_pipeline.txt')
+        return LocalTarget('data_lake/landing/arc.csv')
 
     def run(self):
 
@@ -27,12 +23,12 @@ class ingestar_datos(Task):
             ingest_data()
 
 
-class transformar_datos(Task):
+class transformar_data(Task):
     def requires(self):
-        return ingestar_datos()
+        return ingestar_data()
 
     def output(self):
-        return LocalTarget('data_lake/raw/transformar_datos_pipeline.txt')
+        return LocalTarget('data_lake/raw/arc.txt')
 
     def run(self):
 
@@ -41,12 +37,12 @@ class transformar_datos(Task):
             transform_data()
 
 
-class limpiar_datos(Task):
+class limpiar_data(Task):
     def requires(self):
-        return transformar_datos()
+        return transformar_data()
 
     def output(self):
-        return LocalTarget('data_lake/cleansed/limpiar_datos_pipeline.txt')
+        return LocalTarget('data_lake/cleansed/arc.txt')
 
     def run(self):
 
@@ -55,12 +51,12 @@ class limpiar_datos(Task):
             clean_data()
 
 
-class precio_diario(Task):
+class computar_precio_diario(Task):
     def requires(self):
-        return limpiar_datos()
+        return limpiar_data()
 
     def output(self):
-        return LocalTarget('data_lake/business/precio_diario_pipeline.txt')
+        return LocalTarget('data_lake/business/arc.txt')
 
     def run(self):
 
@@ -69,12 +65,12 @@ class precio_diario(Task):
             compute_daily_prices()
 
 
-class precio_mensual(Task):
+class computar_precio_mensual(Task):
     def requires(self):
-        return precio_diario()
+        return computar_precio_diario()
 
     def output(self):
-        return LocalTarget('data_lake/business/precio_mensual_pipeline.txt')
+        return LocalTarget('data_lake/business/arc.txt')
 
     def run(self):
 
@@ -84,7 +80,7 @@ class precio_mensual(Task):
 
 
 if __name__ == '__main__':
-    luigi.run(["precio_mensual", "--local-scheduler"])
+    luigi.run(["computar_precio_mensual", "--local-scheduler"])
 
 if __name__ == "__main__":
     import doctest
