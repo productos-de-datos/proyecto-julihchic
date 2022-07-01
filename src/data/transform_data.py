@@ -45,12 +45,10 @@ def transform_data():
 def test_answer():
     assert ruta('2021', "xlsx") == "data_lake/landing/2021.xlsx"
 
-    # return
 
     #raise NotImplementedError("Implementar esta función")
 
 
-# transform_data()
 if __name__ == "__main__":
     import doctest
 
