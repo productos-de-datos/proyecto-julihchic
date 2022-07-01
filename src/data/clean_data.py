@@ -14,16 +14,40 @@ def clean_data():
     """
     import pandas as pd
     import glob
-    import os
 
-    df = pd.DataFrame()
-    for file in range(1995,2022):
-        df = pd.concat([df,pd.read_csv('../../data_lake/raw/{}.csv'.format(file))])
+  
+    path_file = glob.glob(r'data_lake/raw/*.csv')
+    li = []
+
     
-    df_unpivoted = df.melt(id_vars=['Fecha'], var_name='Hora', value_name='Precio')
+    for filename in path_file:
+        df = pd.read_csv(filename, index_col=None, header=0)
+        li.append(df) 
     
-    df_unpivoted.to_csv('../../data_lake/cleansed/precios-horarios.csv', encoding='utf-8', index=False)
     
+    read_file = pd.concat(li, axis=0, ignore_index=True)
+    
+    read_file = read_file[read_file["Fecha"].notnull()]
+    
+    
+    fechas = read_file.iloc[:, 0] 
+    
+    
+    lista_datos = []
+    precio = 0
+    contador_filas = 0
+
+    for fecha in fechas:
+        for hora in range(0, 24):
+            precio = (read_file.iloc[contador_filas, (hora+1)])
+            lista_datos.append([fecha, hora, precio])
+        contador_filas += 1
+
+    df = pd.DataFrame(lista_datos, columns=["fecha", "hora", "precio"])
+    df = df[df["precio"].notnull()]
+
+    df.to_csv("data_lake/cleansed/precios-horarios.csv", index=None, header=True)
+
     #raise NotImplementedError("Implementar esta función")
 
 
