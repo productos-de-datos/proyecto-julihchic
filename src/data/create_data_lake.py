@@ -29,7 +29,6 @@ def create_data_lake():
     directory = 'figures'
     os.mkdir(os.path.join(parent_dir, directory))
     #raise NotImplementedError("Implementar esta función")
-    # return
 
 
 if __name__ == "__main__":
