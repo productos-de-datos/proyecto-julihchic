@@ -15,6 +15,7 @@ def compute_daily_prices():
     compute_daily_prices.reset_index(inplace=True)
     compute_daily_prices.to_csv(
         "data_lake/business/precios-diarios.csv", index=None, header=True)
+        
     #raise NotImplementedError("Implementar esta función")
 
 
