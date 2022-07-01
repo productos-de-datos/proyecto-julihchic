@@ -28,10 +28,7 @@ def ingest_data():
     file_name_xls = ["2016", "2017"]
     descargar_archivo(ruta, file_name_xls, ".xls")
     #raise NotImplementedError("Implementar esta función")
-    # return
 
-
-# ingest_data()
 
 
 if __name__ == "__main__":
