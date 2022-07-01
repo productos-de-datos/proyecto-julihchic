@@ -12,7 +12,19 @@ def clean_data():
 
 
     """
-    raise NotImplementedError("Implementar esta función")
+    import pandas as pd
+    import glob
+    import os
+
+    df = pd.DataFrame()
+    for file in range(1995,2022):
+        df = pd.concat([df,pd.read_csv('../../data_lake/raw/{}.csv'.format(file))])
+    
+    df_unpivoted = df.melt(id_vars=['Fecha'], var_name='Hora', value_name='Precio')
+    
+    df_unpivoted.to_csv('../../data_lake/cleansed/precios-horarios.csv', encoding='utf-8', index=False)
+    
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
