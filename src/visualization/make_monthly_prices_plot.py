@@ -21,7 +21,7 @@ def make_monthly_prices_plot():
     plt.xticks(rotation="vertical")
     plt.savefig("data_lake/business/reports/figures/monthly_prices.png")
 
-    
+    # return
     #raise NotImplementedError("Implementar esta función")
 
 
@@ -30,5 +30,4 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    
     make_monthly_prices_plot()
